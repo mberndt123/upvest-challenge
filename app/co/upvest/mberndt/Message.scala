@@ -9,7 +9,7 @@ case class Greeting(number: Int) extends Message
 object Message {
   // might migrate this to parser combinators some time, but for now, some regexes will do.
   private val coordinatesRegex = """Coordinates\(([^,]+),([^,]+),([^)]+)\)""".r
-  private val greetingRegex = """Greets\(Privet: \{([0-9]+)\}\)""".r
+  private val greetingRegex = """Greets\(Privet: \{(-?[0-9]+)\}\)""".r
   private class extract[A](f: String => A) {
     def unapply(s: String): Option[A] = Try(f(s)).toOption
   }
