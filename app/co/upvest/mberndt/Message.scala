@@ -1,26 +1,19 @@
 package co.upvest.mberndt
 
-import scala.util.Try
+import fastparse.all._
+import ParseUtils.{int, double}
 
 sealed trait Message
 case class Coordinates(lat: Double, long: Double, description: String) extends Message
 case class Greeting(number: Int) extends Message
 
 object Message {
-  // might migrate this to parser combinators some time, but for now, some regexes will do.
-  private val coordinatesRegex = """Coordinates\(([^,]+),([^,]+),([^)]+)\)""".r
-  private val greetingRegex = """Greets\(Privet: \{(-?[0-9]+)\}\)""".r
-  private class extract[A](f: String => A) {
-    def unapply(s: String): Option[A] = Try(f(s)).toOption
+  private val greeting = P("Greets(Privet: {" ~ int.map(Greeting.apply) ~ "})")
+  private val coordinates = P {
+    ("Coordinates(" ~ double ~ "," ~ double ~ "," ~ (CharsWhile(_ != ')').! ~ ")"))
+      .map((Coordinates.apply _).tupled)
   }
-  private object extractDouble extends extract(_.toDouble)
-  private object extractInt extends extract(_.toInt)
+  private val message = P((greeting | coordinates) ~ End)
 
-
-  def parse(s: String): Option[Message] = Some(s) collect {
-    case coordinatesRegex(extractDouble(lat), extractDouble(long), description) =>
-      Coordinates(lat, long, description)
-    case greetingRegex(extractInt(num)) =>
-      Greeting(num)
-  }
+  def parse(s: String): Option[Message] = message.unapply(s)
 }
