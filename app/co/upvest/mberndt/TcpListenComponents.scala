@@ -36,7 +36,7 @@ trait TcpListenComponents
   }
 
   private val connections: Future[Tcp.ServerBinding] =
-    Tcp(actorSystem).bind("127.0.0.1", 9011).to(Sink.foreach(handleConnection)).run()
+    Tcp(actorSystem).bind("0.0.0.0", 9011).to(Sink.foreach(handleConnection)).run()
 
   applicationLifecycle.addStopHook(() =>
     connections.flatMap(_.unbind())

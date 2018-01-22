@@ -5,3 +5,6 @@ libraryDependencies ++= Seq(
   "com.lihaoyi" %% "fastparse" % "1.0.0",
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % "test"
 )
+
+dockerExposedPorts := Seq(9000, 9011)
+javaOptions in Universal += "-J-Djava.net.preferIPv4Stack=true"
