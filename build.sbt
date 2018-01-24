@@ -7,4 +7,4 @@ libraryDependencies ++= Seq(
 )
 
 dockerExposedPorts := Seq(9000, 9011)
-javaOptions in Universal += "-J-Djava.net.preferIPv4Stack=true"
+Universal / javaOptions += "-J-Djava.net.preferIPv4Stack=true"
