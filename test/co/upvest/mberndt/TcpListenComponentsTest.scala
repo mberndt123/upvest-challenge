@@ -36,9 +36,9 @@ class TcpListenComponentsTest
     implicit val m: Materializer = app.materializer
     val future = Source.single {
       val str =
-        "Greets(Privet: {815548195})\r\n" +
-        "Greets(Privet: {-7})\r\n" +
-        "Coordinates(-149.4331873,60.12892832,Starbucks - AK - Seward  00025)\r\n"
+        "Greets   ( Privet :  {   815548195 }  ) \r\n" +
+        "Greets (  Privet: { -7 } ) \r\n" +
+        "Coordinates ( -149.4331873 , 60.12892832 ,Starbucks - AK - Seward  00025)\r\n"
       ByteString(str, StandardCharsets.UTF_8)
     }.via(Tcp(app.actorSystem).outgoingConnection("localhost", 9011))
      .to(Sink.ignore)

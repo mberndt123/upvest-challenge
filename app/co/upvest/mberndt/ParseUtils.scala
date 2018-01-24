@@ -13,7 +13,7 @@ object ParseUtils {
   }
   private val digits = P(CharsWhile(_.isDigit))
   val double: Parser[Double] =
-    P(tryMap(("-".? ~ digits ~ ("." ~ digits).?).!)(_.toDouble))
+    P(tryMap(("-".? ~ digits ~ ("." ~ digits).? ~ (CharIn("eE") ~ "-".? ~ digits).?).!)(_.toDouble))
   val int: Parser[Int] =
     P(tryMap(("-".? ~ digits).!)(_.toInt))
 }
