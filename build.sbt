@@ -11,6 +11,12 @@ lazy val frontend =
 lazy val frontendJs =
   frontend.js
   .enablePlugins(ScalaJSPlugin, ScalaJSWeb)
+  .settings(
+    libraryDependencies += "com.thoughtworks.binding" %%% "dom" % "latest.release",
+    scalaJSUseMainModuleInitializer := true
+  )
+
+addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 
 lazy val frontendJvm =
   frontend.jvm

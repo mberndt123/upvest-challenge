@@ -2,7 +2,7 @@ package co.upvest.mberndt
 
 import play.api.ApplicationLoader.Context
 import play.api.routing.Router
-import play.api.{Application, ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator}
+import play.api._
 import play.filters.HttpFiltersComponents
 
 class AppLoader extends ApplicationLoader {
@@ -14,10 +14,15 @@ class AppLoader extends ApplicationLoader {
   }
 }
 
+trait EmptyRouterComponents extends BuiltInComponents {
+  override def router: Router = Router.empty
+}
+
 class MyComponents(context: Context)
   extends BuiltInComponentsFromContext(context)
+    with EmptyRouterComponents
     with HttpFiltersComponents
     with DefaultMessageBusComponents
     with RestApiComponents
-    with TcpListenComponents {
-}
+    with TcpListenComponents
+    with FrontendComponents

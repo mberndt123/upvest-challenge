@@ -1,0 +1,11 @@
+<html>
+    <head>
+        @scalajs.html.scripts(
+            "frontend",
+            name => s"/assets/$name",
+            name => getClass.getResource(s"/public/$name") != null)
+    </head>
+    <body>
+
+    </body>
+</html>

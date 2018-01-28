@@ -38,13 +38,15 @@ trait RestApiComponents
     }
   }
 
-  override def router: Router = Router.from {
-    case GET(p"/greets/even") =>
-      controller.evenGreetings
-    case GET(p"/greets/odd") =>
-      controller.oddGreetings
-    case GET(p"/coordinates") =>
-      controller.coordinates
+  abstract override def router: Router = Router.from {
+    super.router.routes.orElse {
+      case GET(p"/greets/even") =>
+        controller.evenGreetings
+      case GET(p"/greets/odd") =>
+        controller.oddGreetings
+      case GET(p"/coordinates") =>
+        controller.coordinates
+    }
   }
   // Ideally we'd delegate to super.router if a request can't be routed.
   // I proposed and implemented this feature, but it won't be released
