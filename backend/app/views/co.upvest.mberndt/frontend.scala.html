@@ -1,11 +1,14 @@
+@import org.webjars.play.WebJarsUtil
+@this(webJarsUtil: WebJarsUtil, assetsPrefix: String)
 <html>
     <head>
+        @webJarsUtil.locate("leaflet", "dist/leaflet.css").css()
+        <link rel="stylesheet" href="/@assetsPrefix/stylesheets/frontend.css">
         @scalajs.html.scripts(
             "frontend",
-            name => s"/assets/$name",
+            name => s"/$assetsPrefix/$name",
             name => getClass.getResource(s"/public/$name") != null)
     </head>
     <body>
-
     </body>
 </html>

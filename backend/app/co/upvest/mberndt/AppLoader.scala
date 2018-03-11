@@ -1,9 +1,11 @@
 package co.upvest.mberndt
 
+import org.webjars.play.WebJarComponents
 import play.api.ApplicationLoader.Context
 import play.api.routing.Router
-import play.api._
 import play.filters.HttpFiltersComponents
+import _root_.controllers.AssetsComponents
+import play.api._
 
 class AppLoader extends ApplicationLoader {
   def load(context: Context): Application = {
@@ -26,3 +28,4 @@ class MyComponents(context: Context)
     with RestApiComponents
     with TcpListenComponents
     with FrontendComponents
+    with AssetsComponents
