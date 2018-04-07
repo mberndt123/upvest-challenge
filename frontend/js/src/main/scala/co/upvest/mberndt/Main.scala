@@ -29,6 +29,13 @@ object Main {
       }
     }</ul>
 
+  @dom
+  def map: Binding[HTMLDivElement] = {
+    val e = <div id="myMap"></div>
+    new MapMountPoint(e, coordinates).bind
+    e
+  }
+
   def subscribe[A](url: String, msg: String, vars: Vars[A])(parse: String => A): EventSource = {
     val source = new d.EventSource(url)
     source.addEventListener(msg, { (msg: MessageEvent) =>
@@ -56,13 +63,6 @@ object Main {
         json.description.asInstanceOf[String]
       )
     }
-  }
-
-  @dom
-  def map: Binding[HTMLDivElement] = {
-    val e = <div id="myMap"></div>
-    new MapMountPoint(e, coordinates).bind
-    e
   }
 
   def main(args: Array[String]): Unit = {
