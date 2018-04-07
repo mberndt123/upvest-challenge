@@ -1,5 +1,4 @@
 package co.upvest.mberndt
-import com.cibo.leaflet.{LatLng, Leaflet}
 import com.thoughtworks.binding.Binding.{BindingSeq, Constants, Vars}
 import com.thoughtworks.binding.{Binding, dom}
 import org.scalajs.dom.raw.{HTMLDivElement, HTMLElement, Node}
