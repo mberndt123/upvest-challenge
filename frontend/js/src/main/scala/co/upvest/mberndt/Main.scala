@@ -68,13 +68,6 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     d.window.addEventListener("load", { (_: Event) =>
-      val div = d.document.createElement("div")
-      div.setAttribute("id", "myMap") // my stylesheet contains the formatting for this ID
-      val map = Leaflet.mapFromNode(div).setView(LatLng(51.505, -0.09), 13)
-      Leaflet.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map)
-      d.document.body.appendChild(div)
-
-
       dom.render(d.document.body, view)
       subscribeGreetings("even", evenGreetings)
       subscribeGreetings("odd", oddGreetings)
