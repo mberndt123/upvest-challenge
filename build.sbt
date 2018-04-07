@@ -7,7 +7,6 @@ lazy val backend =
   )
 lazy val frontend =
   crossProject
-  .settings(libraryDependencies += "com.lihaoyi" %%% "fastparse" % "1.0.0")
 
 lazy val frontendJs =
   frontend.js
@@ -25,3 +24,6 @@ lazy val frontendJs =
 
 lazy val frontendJvm =
   frontend.jvm
+  .settings(
+    libraryDependencies += "com.lihaoyi" %%% "fastparse" % "1.0.0"
+  )

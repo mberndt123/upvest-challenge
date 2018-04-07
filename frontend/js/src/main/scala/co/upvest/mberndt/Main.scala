@@ -12,13 +12,15 @@ object Main {
   val oddGreetings: Vars[Greeting] = Vars.empty
   val coordinates: Vars[Coordinates] = Vars.empty
 
-  def view: Binding[BindingSeq[Node]] = Binding {
+  @dom
+  def view: Binding[BindingSeq[Node]] =
     Constants(
+      <h1>Even</h1>,
       greets(evenGreetings).bind,
+      <h1>Odd</h1>,
       greets(oddGreetings).bind,
       map.bind
     )
-  }
 
   @dom
   def greets(greets: BindingSeq[Greeting]): Binding[HTMLElement] =
