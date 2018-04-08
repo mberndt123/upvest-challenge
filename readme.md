@@ -1,8 +1,10 @@
 # Usage
 It is a simple webapp based on the Play framework. 
-- start sbt and type "run"
+- start sbt and type backend/run
 - the application won't actually start until you make a request
-  to the HTTP API, e. g. curl http://localhost:9000/greets/even
+  to the HTTP API, the simplest way is to open the [frontend](http://localhost:9000/frontend)
+- the frontend is a simple single page app built with Scala.js, Binding.scala, Leaflet and W3.CSS. It will
+  display the last 10 even and odd greetings and the last 10 locations on a map.
 - it is also possible to run via docker. type "docker:publishLocal"
   into the sbt prompt (docker needs to be running) and start the
   generated container from a shell using
