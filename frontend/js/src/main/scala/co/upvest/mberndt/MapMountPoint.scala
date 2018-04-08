@@ -10,7 +10,7 @@ import scala.collection.GenSeq
 class MapMountPoint(parent: Element, coordinates: BindingSeq[Coordinates])
   extends MultiMountPoint[Coordinates](coordinates) {
   private var map: LeafletMap = _
-  private var points = mutable.ArrayBuffer.empty[Layer]
+  private val points = mutable.ArrayBuffer.empty[Layer]
 
   override protected def mount(): Unit = {
     super.mount()
