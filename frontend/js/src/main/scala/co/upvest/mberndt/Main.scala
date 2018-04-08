@@ -12,14 +12,18 @@ object Main {
   val coordinates: Vars[Coordinates] = Vars.empty
 
   @dom
-  def view: Binding[BindingSeq[Node]] =
-    Constants(
-      <h1>Even</h1>,
-      greets(evenGreetings).bind,
-      <h1>Odd</h1>,
-      greets(oddGreetings).bind,
-      map.bind
-    )
+  def view: Binding[Node] =
+    <div class="w3-row w3-padding">
+      <div class="w3-quarter w3-padding">
+        <h1>Even</h1>
+        {greets(evenGreetings).bind}
+      </div>
+      {map.bind}
+      <div class="w3-quarter w3-padding">
+        <h1>Odd</h1>
+        {greets(oddGreetings).bind}
+      </div>
+    </div>
 
   @dom
   def greets(greets: BindingSeq[Greeting]): Binding[HTMLElement] =
@@ -31,7 +35,7 @@ object Main {
 
   @dom
   def map: Binding[HTMLDivElement] = {
-    val e = <div id="myMap"></div>
+    val e = <div id="myMap" class="w3-half w3-padding"></div>
     new MapMountPoint(e, coordinates).bind
     e
   }
