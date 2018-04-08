@@ -9,6 +9,10 @@ object Parse extends WhitespaceApi.Wrapper({
   NoTrace(CharsWhileIn(" \t", 0))
 })
 
+// I'd normally put this directly in the Message companion object. However
+// that is compiled for the frontend as well, and we don't want the
+// fastparse dependency there, so we have this MessageImpl for the
+// backend and an empty MessageImpl for the frontend.
 trait MessageImpl {
   import Parse._
   private val greeting = P("Greets" ~ "(" ~/ "Privet" ~ ":" ~ "{" ~ int.map(Greeting.apply) ~ "}" ~ ")")
