@@ -27,7 +27,7 @@ object Main {
 
   @dom
   def greets(greets: BindingSeq[Greeting]): Binding[HTMLElement] =
-    <ul>{
+    <ul class="w3-ul">{
       for (g <- greets) yield {
         <li>{g.toString}</li>
       }
