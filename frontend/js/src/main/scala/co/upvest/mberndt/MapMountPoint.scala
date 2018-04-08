@@ -36,7 +36,11 @@ class MapMountPoint(parent: Element, coordinates: BindingSeq[Coordinates])
     points.remove(from, replaced)
     points.insertAll(from, that.map { c =>
       val marker = L.marker(LatLng(c.lat, c.long))
-      marker.asInstanceOf[scala.scalajs.js.Dynamic].bindTooltip(c.description).openTooltip()
+      marker.asInstanceOf[scala.scalajs.js.Dynamic]
+            .bindTooltip(dom.document.createTextNode(c.description))
+            // we need to use createTextNode here, otherwise it will interpret the
+            // description as HTML, leading to injection attacks
+            .openTooltip()
       marker.addTo(map)
     }.seq)
   }
