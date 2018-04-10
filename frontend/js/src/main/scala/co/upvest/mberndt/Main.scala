@@ -8,19 +8,19 @@ import org.scalajs.{dom => d}
 object Main {
   @dom
   def view(
-    evenGreetings: BindingSeq[Greeting],
-    oddGreetings: BindingSeq[Greeting],
-    coordinates: BindingSeq[Coordinates]
+    evenGreetings: Binding[HTMLElement],
+    oddGreetings: Binding[HTMLElement],
+    coordinates: Binding[HTMLElement]
   ): Binding[Node] =
     <div class="w3-row w3-padding">
       <div class="w3-quarter w3-padding">
         <h1>Even</h1>
-        {greets(evenGreetings).bind}
+        {evenGreetings.bind}
       </div>
-      {map(coordinates).bind}
+      {coordinates.bind}
       <div class="w3-quarter w3-padding">
         <h1>Odd</h1>
-        {greets(oddGreetings).bind}
+        {oddGreetings.bind}
       </div>
     </div>
 
@@ -74,7 +74,12 @@ object Main {
       val (_, evenGreetings) = subscribeGreetings("even")
       val (_, oddGreetings) = subscribeGreetings("odd")
       val (_, coordinates) = subscribeCoordinates()
-      dom.render(d.document.body, view(evenGreetings, oddGreetings, coordinates))
+      dom.render(d.document.body,
+        view(
+          greets(evenGreetings),
+          greets(oddGreetings),
+          map(coordinates))
+        )
     })
   }
 
