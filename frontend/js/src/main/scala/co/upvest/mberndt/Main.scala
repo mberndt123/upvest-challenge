@@ -5,7 +5,7 @@ import org.scalajs.dom.raw.{HTMLDivElement, HTMLElement, Node}
 import org.scalajs.dom.{Event, EventSource, MessageEvent}
 import org.scalajs.{dom => d}
 import scalatags.JsDom.all._
-import scalaz.syntax.functor._
+import scalaz.syntax.monad._
 
 object Main {
   @dom
@@ -15,24 +15,21 @@ object Main {
     coordinates: Binding[HTMLElement]
   ): Binding[Node] =
     <div class="w3-row w3-padding">
-      <div class="w3-quarter w3-padding">
-        <h1>Even</h1>
-        {evenGreetings.bind}
-      </div>
+      {evenGreetings.bind}
       {coordinates.bind}
-      <div class="w3-quarter w3-padding">
-        <h1>Odd</h1>
-        {oddGreetings.bind}
-      </div>
+      {oddGreetings.bind}
     </div>
 
   @dom
-  def greets(greets: BindingSeq[Greeting]): Binding[HTMLElement] =
-    <ul class="w3-ul">{
-      for (g <- greets) yield {
-        <li>{g.toString}</li>
-      }
-    }</ul>
+  def greets(title: String, greets: BindingSeq[Greeting]): Binding[HTMLElement] =
+    <div class="w3-quarter w3-padding">
+      <h1>{title}</h1>
+      <ul class="w3-ul">{
+        for (g <- greets) yield {
+          <li>{g.toString}</li>
+        }
+      }</ul>
+    </div>
 
   def map(coordinates: BindingSeq[Coordinates]): Binding[HTMLDivElement] = {
     val e = div(`class` := "w3-half w3-padding", id := "myMap").render
@@ -76,8 +73,8 @@ object Main {
       val (_, coordinates) = subscribeCoordinates()
       dom.render(d.document.body,
         view(
-          greets(evenGreetings),
-          greets(oddGreetings),
+          greets("Even", evenGreetings),
+          greets("Odd", oddGreetings),
           map(coordinates))
         )
     })
