@@ -3,7 +3,7 @@ package co.upvest.mberndt
 import com.thoughtworks.binding.Binding.{BindingSeq, MultiMountPoint}
 
 import scala.collection.GenSeq
-abstract class StatefulMultiMountPoint[A](as: BindingSeq[A]) extends MultiMountPoint[A](as) {
+abstract class StatefulMultiMountPoint[-A](as: BindingSeq[A]) extends MultiMountPoint[A](as) {
   protected type State
   private var state: State = _
   protected def init(): State

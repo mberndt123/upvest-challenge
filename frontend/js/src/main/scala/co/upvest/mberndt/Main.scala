@@ -4,6 +4,8 @@ import com.thoughtworks.binding.{Binding, dom}
 import org.scalajs.dom.raw.{HTMLDivElement, HTMLElement, Node}
 import org.scalajs.dom.{Event, EventSource, MessageEvent}
 import org.scalajs.{dom => d}
+import scalatags.JsDom.all._
+import scalaz.syntax.functor._
 
 object Main {
   @dom
@@ -32,11 +34,9 @@ object Main {
       }
     }</ul>
 
-  @dom
   def map(coordinates: BindingSeq[Coordinates]): Binding[HTMLDivElement] = {
-    val e = <div id="myMap" class="w3-half w3-padding"></div>
-    new MapMountPoint(e, coordinates).bind
-    e
+    val e = div(`class` := "w3-half w3-padding", id := "myMap").render
+    (new MapMountPoint(e, coordinates): Binding[Unit]).map(_ => e)
   }
 
   def subscribe[A](url: String, msg: String)(parse: String => A): (EventSource, BindingSeq[A]) = {
